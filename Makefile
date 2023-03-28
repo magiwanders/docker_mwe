@@ -17,12 +17,12 @@ rebuild:
 	make start
 	
 container: 
-	open -a XQuartz
-	xhost + 127.0.0.1
 	docker container create -e DISPLAY=host.docker.internal:0 -v /tmp/.X11-unix:/tmp/.X11-unix -it --mount type=bind,source='$(shell pwd)'/user,target=/home/user --name $(name) $(user)/$(name):$(version) 
 	docker container ls -a
 
 start:
+	open -a XQuartz
+	xhost + 127.0.0.1
 	docker container start -i $(name)
 
 clean:
